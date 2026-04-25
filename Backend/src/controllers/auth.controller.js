@@ -175,7 +175,6 @@ const logout = async (req, res) => {
 
         if (token) {
             await blacklistModel.create({ token })
-
         }
 
         res.clearCookie("token")
