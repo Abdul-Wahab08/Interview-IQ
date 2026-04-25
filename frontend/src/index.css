@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+body {
+  background-color: #0d1117;
+  color: #ccfbf1;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: #0d947218;
+  top: -150px;
+  right: -150px;
+  filter: blur(80px);
+  z-index: 0;
+  pointer-events: none;
+}
