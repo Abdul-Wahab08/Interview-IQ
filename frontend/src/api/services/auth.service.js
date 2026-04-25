@@ -38,7 +38,7 @@ export async function login({ username, email, password }) {
     }
 }
 
-export async function logout({ username, email, password }) {
+export async function logout() {
     try {
         const response = await axiosinstance.post('/auth/logout')
 
@@ -49,7 +49,7 @@ export async function logout({ username, email, password }) {
     }
 }
 
-export async function getUser({ username, email, password }) {
+export async function getUser() {
     try {
         const response = await axiosinstance.get('/auth/getUser')
 

@@ -6,7 +6,7 @@ import App from './App.jsx'
 import Home from './pages/Home.jsx'
 import Signup from './pages/Signup.jsx'
 import { ToastContainer } from "react-toastify";
-import { store } from './app/store'
+import store  from './store/store.js'
 import { Provider } from 'react-redux'
 
 const router = createBrowserRouter([
@@ -42,7 +42,7 @@ createRoot(document.getElementById('root')).render(
       draggable
       pauseOnHover
       theme="light"
-      transition={Bounce}
+     // transition={Bounce}
     />
   </StrictMode>,
 )
