@@ -68,12 +68,19 @@ const createInterviewReport = async (req, res) => {
  * @access Private
  */
 const createResumePdf = async (req, res) => {
-
     try {
-        const resumeContent = (await (new pdfParse.PDFParse(Uint8Array.from(req.file.buffer))).getText()).text.trim();
-        const { jobDescription, selfDescription } = req.body
+        const { interviewReportId } = req.params;
 
-        if (!(resumeContent || jobDescription || selfDescription)) {
+        if (!interviewReportId) {
+            return res.status(400).json({
+                message: "Interview ID is required to generate resume PDF"
+            })
+        }
+        const interviewObjId = new mongoose.Types.ObjectId(interviewReportId);
+
+        const { jobDescription, selfDescription, resume } = await interviewReportModel.findById(interviewObjId);
+
+        if (!(resume || jobDescription || selfDescription)) {
             return res.status(400).json({
                 message: "Resume, job description and self description are required to generate resume"
             });
@@ -81,7 +88,7 @@ const createResumePdf = async (req, res) => {
 
         const pdfBuffer = await generateResumePdf({
             jobDescription,
-            resume: resumeContent,
+            resume,
             selfDescription
         });
 
@@ -120,9 +127,9 @@ const fetchUserInterviewReports = async (req, res) => {
             })
         }
 
-        const totalUserReports = await interviewReportModel.countDocuments({ userId }) 
+        const totalUserReports = await interviewReportModel.countDocuments({ userId })
 
-        if(totalUserReports === 0) {
+        if (totalUserReports === 0) {
             return res.status(404).json({
                 message: "No interview reports found for this user"
             })
@@ -148,15 +155,15 @@ const fetchUserInterviewReports = async (req, res) => {
  */
 const fetchInterviewReportById = async (req, res) => {
     try {
-        const interviewId = req.params
+        const { interviewReportId } = req.params
 
-        if (!interviewId) {
+        if (!interviewReportId) {
             return res.status(400).json({
                 message: "Interview ID is required to fetch interview report"
             })
         }
 
-        const interviewObjId = new mongoose.Types.ObjectId(interviewId);
+        const interviewObjId = new mongoose.Types.ObjectId(interviewReportId);
 
         const interviewReport = await interviewReportModel.findById(interviewObjId);
 
