@@ -14,7 +14,6 @@ function LogoutBtn() {
             dispatch(reduxLogout())
             toast.success("Logout successful")
         } catch (error) {
-            console.error("Logout failed:", error)
             toast.error(error.message || "Logout failed: An unexpected error occurred")
         }
     }

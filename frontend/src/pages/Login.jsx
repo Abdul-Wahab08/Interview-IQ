@@ -24,7 +24,6 @@ function Login() {
         navigate("/")
       }
     } catch (error) {
-      console.error("Login failed:", error)
       toast.error(error.message || "Login failed: An unexpected error occurred")
     }
   }
