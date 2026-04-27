@@ -2,6 +2,7 @@ import React from 'react'
 import { logout } from '../api/services/auth.service'
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
+import { logout as reduxLogout } from '../features/auth/authSlice'
 
 function LogoutBtn() {
 
@@ -10,7 +11,7 @@ function LogoutBtn() {
     const handleLogout = async () => {
         try {
             await logout()
-            dispatch(logout())
+            dispatch(reduxLogout())
             toast.success("Logout successful")
         } catch (error) {
             console.error("Logout failed:", error)

@@ -26,29 +26,26 @@ function Login() {
     } catch (error) {
       console.error("Login failed:", error)
       toast.error(error.message || "Login failed: An unexpected error occurred")
-      // if (error.response) {
-      //   toast.error(`Login failed: ${error.response.data.message}`)
-      // } else {
-      //   toast.error("Login failed: An unexpected error occurred")
-      // }
     }
   }
 
   return (
-    // the theme is teal and dark, but the login form is white and simple for contrast
-    <div className="min-h-screen flex items-center justify-center bg-[#0d1117]">
-      <div className="bg-teal-700 rounded-lg shadow-lg p-8 w-full max-w-md">
-        <h2 className="text-3xl font-bold text-center mb-6 text-[#0d1117]">Login</h2>
-        <p className="text-center mb-4 text-lg text-gray-600">Don't have an account? <Link to="/signup" className="text-teal-500 hover:text-teal-800 font-medium">Sign Up</Link></p>
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="bg-[#161b22] border border-[#1f2d3d] text-white shadow-[0_0_40px_#0d947212] rounded-lg p-8 w-3/4 sm:w-full max-w-md">
+      <h1 className="text-2xl font-bold text-center mb-4">Welcome Back</h1>
+        <div className='flex justify-center items-center flex-col text-teal-500'>
+        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-2 ">Login in to your account</h2>
+        <p className="text-center mb-4 text-sm text-gray-600">Don't have any account? <Link to="/signup" className=" hover:text-teal-800 ">Sign Up</Link></p>
+        </div>
         <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
-          <label htmlFor="identifier" className="block text-sm font-medium text-gray-700">Identifier</label>
+          <label htmlFor="identifier" className="block text-sm font-medium">Identifier</label>
           <input type="text" id="identifier" className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500" placeholder="Enter your Email or Username" {...register("identifier", { required: true })} />
           {errors.identifier && <p className="text-red-500 text-sm">Identifier is required</p>}
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+          <label htmlFor="password" className="block text-sm font-medium">Password</label>
           <input type="password" id="password" className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500" placeholder="Enter your password" {...register("password", { required: true })} />
           {errors.password && <p className="text-red-500 text-sm">Password is required</p>}
           <button
-            className="bg-teal-500 hover:bg-teal-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-200 w-full cursor-pointer "
+            className="bg-teal-500 hover:bg-teal-600 text-teal-950 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-200 w-full cursor-pointer "
             type="submit"
           >
             Sign In
