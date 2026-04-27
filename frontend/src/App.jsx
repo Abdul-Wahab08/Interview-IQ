@@ -2,7 +2,9 @@ import { Outlet } from "react-router"
 import Navbar from "./components/Navbar"
 import { useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
-import { getUser, login } from "./api/services/auth.service"
+import { getUser } from "./api/services/auth.service"
+import { login } from "./features/auth/authSlice"
+import { toast } from "react-toastify"
 
 function App() {
   const dispatch = useDispatch()
@@ -11,8 +13,9 @@ function App() {
     const isUserLoggedIn = async ()=>{
       try {
         const data = await getUser()
-        console.log("Response from getUser in App.jsx: ", data)
-        dispatch(login(data))
+        if(data && data.user) { 
+        dispatch(login(data.user))
+        }
       } catch (error) {
         console.error("Error fetching user data: ", error)
       }

@@ -6,8 +6,10 @@ import App from './App.jsx'
 import Home from './pages/Home.jsx'
 import Signup from './pages/Signup.jsx'
 import { ToastContainer } from "react-toastify";
-import store  from './store/store.js'
+import store from './store/store.js'
 import { Provider } from 'react-redux'
+import AuthLayout from './components/AuthLayout.jsx';
+import Login from './pages/Login.jsx';
 
 const router = createBrowserRouter([
   {
@@ -20,8 +22,20 @@ const router = createBrowserRouter([
       },
       {
         path: "/signup",
-        element: <Signup />
-      }
+        element: (
+          <AuthLayout authentication={false}>
+            <Signup />
+          </AuthLayout>
+        )
+      },
+      {
+        path: "/login",
+        element: (
+          <AuthLayout authentication={false}>
+            <Login />
+          </AuthLayout>
+        )
+      },
     ]
   },
 ])
@@ -30,7 +44,7 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
       <RouterProvider router={router} />
-    </Provider> 
+    </Provider>
     <ToastContainer
       position="top-right"
       autoClose={5000}
@@ -42,7 +56,7 @@ createRoot(document.getElementById('root')).render(
       draggable
       pauseOnHover
       theme="light"
-     // transition={Bounce}
+    // transition={Bounce}
     />
   </StrictMode>,
 )

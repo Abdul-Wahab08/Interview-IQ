@@ -84,78 +84,45 @@ const signup = async (req, res) => {
  */
 const login = async (req, res) => {
     try {
-        const { username, email, password } = req.body
+        const { identifier, password } = req.body
 
-        if (!(username || email)) {
-            return res.status(400).json({ message: "Username or email is required" })
+        if (!identifier || !password) {
+            return res.status(400).json({ message: "Identifier and password are required" })
         }
 
-        const existingUserByUsername = await userModel.findOne({ username })
-        const existingUserByEmail = await userModel.findOne({ email })
+        const existingUser = await userModel.findOne({ $or: [{ username: identifier }, { email: identifier }] })
 
-        if (!(existingUserByUsername || existingUserByEmail)) {
+        if (!existingUser) {
             return res.status(400).json({ message: "User not found with this username or email" })
         }
 
-        if (existingUserByUsername) {
+        const isPasswordValid = await bcrypt.compare(password, existingUser.password)
 
-            const isPasswordValid = await bcrypt.compare(password, existingUserByUsername.password)
-
-            if (!isPasswordValid) {
-                return res.status(400).json({ message: "Invalid password" })
-            }
-
-            const token = jwt.sign(
-                {
-                    _id: existingUserByUsername._id,
-                    username: existingUserByUsername.username
-                },
-                process.env.JWT_SECRET,
-                {
-                    expiresIn: "1d"
-                }
-            )
-
-            res.cookie("token", token)
-
-            return res.status(200).json({
-                message: "User Logged in Successfully",
-                user: {
-                    _id: existingUserByUsername._id,
-                    username: existingUserByUsername.username,
-                    email: existingUserByUsername.email
-                }
-            })
-        } else if (existingUserByEmail) {
-
-            const isPasswordValid = await bcrypt.compare(password, existingUserByEmail.password)
-
-            if (!isPasswordValid) {
-                return res.status(400).json({ message: "Invalid password" })
-            }
-
-            const token = jwt.sign(
-                {
-                    _id: existingUserByEmail._id,
-                    username: existingUserByEmail.username
-                },
-                process.env.JWT_SECRET,
-                {
-                    expiresIn: "1d"
-                }
-            )
-
-            res.cookie("token", token)
-
-            return res.status(200).json({
-                message: "User Logged in Successfully",
-                user: {
-                    _id: existingUserByEmail._id,
-                    username: existingUserByEmail.username,
-                    email: existingUserByEmail.email
-                }
-            })
+        if (!isPasswordValid) {
+            return res.status(400).json({ message: "Invalid password" })
         }
+
+         const token = jwt.sign(
+                {
+                    _id: existingUser._id,
+                    username: existingUser.username
+                },
+                process.env.JWT_SECRET,
+                {
+                    expiresIn: "1d"
+                }
+            )
+
+              res.cookie("token", token)
+
+            return res.status(200).json({
+                message: "User Logged in Successfully",
+                user: {
+                    _id: existingUser._id,
+                    username: existingUser.username,
+                    email: existingUser.email
+                }
+            })
 
     } catch (error) {
         console.log("Error in Login controller:", error)
