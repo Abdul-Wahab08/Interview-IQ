@@ -17,20 +17,12 @@ function Home() {
           Upload your resume, describe the role — get an AI-tailored resume
           and a full interview prep report instantly.
         </p>
-        <div className="flex gap-3">
           <button
-            onClick={() => navigate("/generate-resume")}
+            onClick={() => navigate("/generate-report")}
             className="bg-teal-700 hover:bg-teal-600 text-teal-100 text-sm px-6 py-2.5 rounded-lg transition"
           >
-            Generate Resume
+            Generate Interview Report
           </button>
-          <button
-            onClick={() => navigate("/interview-report")}
-            className="border border-teal-800 hover:border-teal-600 text-teal-400 hover:text-teal-200 text-sm px-6 py-2.5 rounded-lg transition"
-          >
-            Interview Report
-          </button>
-        </div>
       </section>
 
       {/* Steps */}
@@ -51,7 +43,7 @@ function Home() {
       {/* Feature Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto px-6">
         <div className="bg-[#0a1628] border border-teal-900/40 hover:border-teal-700 rounded-2xl p-6 transition cursor-pointer"
-          onClick={() => navigate("/generate-resume")}>
+          onClick={() => navigate("/generate-report")}>
           <div className="w-9 h-9 bg-teal-950 rounded-lg flex items-center justify-center mb-4">
             <svg className="w-5 h-5 stroke-teal-400" fill="none" strokeWidth="1.5" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6M9 16h6M7 4H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2h-2M9 4a2 2 0 002 2h2a2 2 0 002-2M9 4a2 2 0 012-2h2a2 2 0 012 2"/>
@@ -69,7 +61,7 @@ function Home() {
         </div>
 
         <div className="bg-[#0a1628] border border-teal-900/40 hover:border-teal-700 rounded-2xl p-6 transition cursor-pointer"
-          onClick={() => navigate("/interview-report")}>
+          onClick={() => navigate("/generate-report")}>
           <div className="w-9 h-9 bg-teal-950 rounded-lg flex items-center justify-center mb-4">
             <svg className="w-5 h-5 stroke-teal-400" fill="none" strokeWidth="1.5" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M8 9h8M8 13h5M5 5h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"/>

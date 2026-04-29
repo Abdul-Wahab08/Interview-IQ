@@ -26,7 +26,8 @@ export async function createResumePdf(interviewReportId) {
         return response.data;
     } catch (error) {
         console.error("Error creating resume PDF:", error);
-        throw new Error("Failed to create resume PDF");
+        const message = error.response.data.message || "Failed to create resume PDF";
+        throw new Error(message);
     }
 }
 

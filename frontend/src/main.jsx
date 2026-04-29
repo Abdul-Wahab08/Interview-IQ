@@ -10,6 +10,7 @@ import store from './store/store.js'
 import { Provider } from 'react-redux'
 import AuthLayout from './components/AuthLayout.jsx';
 import Login from './pages/Login.jsx';
+import GenerateReport from './pages/GenerateReport.jsx';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,22 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication={false}>
             <Login />
+          </AuthLayout>
+        )
+      },
+      {
+        path: "/generate-report",
+        element: (
+          <AuthLayout authentication>
+            <GenerateReport />
+          </AuthLayout>
+        )
+      },
+      {
+        path: "/interview-report/:reportId",
+        element: (
+          <AuthLayout authentication>
+            <GenerateReport />
           </AuthLayout>
         )
       },
