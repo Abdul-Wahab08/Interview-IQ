@@ -118,7 +118,7 @@ export const generateInterviewReport = async ({ jobDescription, resume, selfDesc
 
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
+      model: "gemini-3-flash-preview",
       contents: prompt,
       config: {
         systemInstruction: "Respond with a valid JSON object strictly following the provided response schema. All required fields must be present.",
@@ -129,7 +129,6 @@ export const generateInterviewReport = async ({ jobDescription, resume, selfDesc
 
     const interviewReport = JSON.parse(response.text);
 
-    console.log("Generated Interview Report: ", interviewReport);
     return interviewReport;
   } catch (error) {
     console.error("Error generating interview report:", error);
