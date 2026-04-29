@@ -1,9 +1,18 @@
 import { generateInterviewReport, generateResumePdf } from "../services/ai.service.js";
 import interviewReportModel from "../models/interviewReport.model.js";
-import { createRequire } from "module";
 import mongoose from "mongoose";
+import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 const pdfParse = require("pdf-parse");
+//import pdfParse from "pdf-parse/lib/pdf-parse.js";
+// import { createRequire } from "module";
+// import { fileURLToPath } from "url";
+// import path from "path";
+
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+// const require = createRequire(import.meta.url);
+// const parsePdf = require(path.resolve(__dirname, "../utils/pdfParser.cjs"));
 
 /**
  * @name createInterviewReport
@@ -12,12 +21,15 @@ const pdfParse = require("pdf-parse");
  */
 const createInterviewReport = async (req, res) => {
     try {
-        const resumeContent = (await (new pdfParse.PDFParse(Uint8Array.from(req.file.buffer))).getText()).text.trim()
+        //const resume = await (new pdfParse.PDFParse(Uint8Array.from(req.file.buffer))).getText()
+        //const resumeContent = resume.text.trim()
+         const resumeContent = (await (new pdfParse.PDFParse(Uint8Array.from(req.file.buffer))).getText()).text.trim()
+        console.log("Extracted resume content:", resumeContent);
         const { jobDescription, selfDescription } = req.body;
 
         if (!(resumeContent || jobDescription || selfDescription)) {
             return res.status(400).json({
-                message: "Resume, job description and self description are required to generate interview report"
+                message: "Resume, job   and self description are required to generate interview report"
             });
         }
 
