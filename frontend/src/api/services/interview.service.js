@@ -1,11 +1,11 @@
 import axiosInstance from "../axiosinstance";
 
-export async function createInterviewReport({ jobDescription, selfDescription, resumeFile }) {
+export async function createInterviewReport({ jobDescription, selfDescription, resume }) {
     try {
         const formData = new FormData();
         formData.append('jobDescription', jobDescription);
         formData.append('selfDescription', selfDescription);
-        formData.append('resumeFile', resumeFile);
+        formData.append('resume', resume);
         const response = await axiosInstance.post('/interview/generate-interview-report', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
@@ -14,7 +14,8 @@ export async function createInterviewReport({ jobDescription, selfDescription, r
         return response.data;
     } catch (error) {
         console.error("Error creating interview report:", error);
-        throw new Error("Failed to create interview report");
+        const message = error.response.data.message || "Failed to create interview report";
+        throw new Error(message);
     }
 }
 
@@ -37,7 +38,8 @@ export async function fetchLoggedInUserReports(userId) {
         return response.data;
     } catch (error) {
         console.error("Error fetching user interview reports:", error);
-        throw new Error("Failed to fetch user interview reports");
+        const message = error.response.data.message || "Failed to fetch user interview reports";
+        throw new Error(message);
     }
 }
 
@@ -47,6 +49,7 @@ export async function fetchInterviewReportById(interviewReportId) {
         return response.data;
     } catch (error) {
         console.error("Error fetching interview report by ID:", error);
-        throw new Error("Failed to fetch interview report by ID");
+        const message = error.response.data.message || "Failed to fetch interview report";
+        throw new Error(message);
     }
 }

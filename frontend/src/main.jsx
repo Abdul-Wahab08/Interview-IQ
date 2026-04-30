@@ -11,6 +11,7 @@ import { Provider } from 'react-redux'
 import AuthLayout from './components/AuthLayout.jsx';
 import Login from './pages/Login.jsx';
 import GenerateReport from './pages/GenerateReport.jsx';
+import InterviewReport from './pages/InterviewReport.jsx';
 
 const router = createBrowserRouter([
   {
@@ -49,7 +50,7 @@ const router = createBrowserRouter([
         path: "/interview-report/:reportId",
         element: (
           <AuthLayout authentication>
-            <GenerateReport />
+            <InterviewReport />
           </AuthLayout>
         )
       },

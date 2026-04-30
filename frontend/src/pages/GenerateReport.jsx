@@ -16,7 +16,7 @@ function GenerateReport() {
       const response = await createInterviewReport({
         jobDescription: data.jobDescription,
         selfDescription: data.selfDescription,
-        resume: data.resume[0]
+        resume: data.resume[0],
       })
       console.log("Interview report created successfully:", response);
       toast.success(response.message || "Interview report generated successfully")
