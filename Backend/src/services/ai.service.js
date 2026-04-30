@@ -7,7 +7,7 @@ import { convertTextToPdfUsingPuppeteer } from "./puppeteer.service.js";
 const technicalQuestionsSchema = z.object({
   question: z.string().describe("Technical question can be asked during the interview"),
   intention: z.string().describe("Intention behind asking the technical question"),
-  answer: z.string().describe("How to answer the question, including key points to cover and common pitfalls to avoid") 
+  answer: z.string().describe("How to answer the question, including key points to cover and common pitfalls to avoid")
 }).describe("Technical questions that can be asked during the interview");
 
 const behavioralQuestionsSchema = z.object({
@@ -46,9 +46,9 @@ const geminiSchema = {
       items: {
         type: "object",
         properties: {
-          question:  { type: "string" },
+          question: { type: "string" },
           intention: { type: "string" },
-          answer:    { type: "string" },
+          answer: { type: "string" },
         },
         required: ["question", "intention", "answer"],
       },
@@ -58,9 +58,9 @@ const geminiSchema = {
       items: {
         type: "object",
         properties: {
-          question:  { type: "string" },
+          question: { type: "string" },
           intention: { type: "string" },
-          answer:    { type: "string" },
+          answer: { type: "string" },
         },
         required: ["question", "intention", "answer"],
       },
@@ -70,7 +70,7 @@ const geminiSchema = {
       items: {
         type: "object",
         properties: {
-          skill:    { type: "string" },
+          skill: { type: "string" },
           severity: { type: "string", enum: ["Low", "Medium", "High"] },
         },
         required: ["skill", "severity"],
@@ -81,7 +81,7 @@ const geminiSchema = {
       items: {
         type: "object",
         properties: {
-          day:   { type: "number" },
+          day: { type: "number" },
           focus: { type: "string" },
           tasks: { type: "array", items: { type: "string" } },
         },
@@ -112,8 +112,8 @@ export const generateInterviewReport = async ({ jobDescription, resume, selfDesc
     type: "object",
     properties: fullSchema.properties,
     required: fullSchema.required,
-    ...(fullSchema.$defs        && { $defs: fullSchema.$defs }),
-  ...(fullSchema.definitions  && { definitions: fullSchema.definitions }),
+    ...(fullSchema.$defs && { $defs: fullSchema.$defs }),
+    ...(fullSchema.definitions && { definitions: fullSchema.definitions }),
   }
 
   try {
@@ -165,7 +165,7 @@ export const generateResumePdf = async ({ jobDescription, resume, selfDescriptio
         responseMimeType: "application/json",
         responseSchema: zodToJsonSchema(pdfSchema)
       }
-    }) 
+    })
 
     const pdfBuffer = await convertTextToPdfUsingPuppeteer(response.text)
     return pdfBuffer;
