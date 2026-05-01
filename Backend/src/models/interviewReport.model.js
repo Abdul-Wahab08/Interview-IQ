@@ -38,7 +38,7 @@ const behavioralQuestionsSchema = new mongoose.Schema({
         _id: false
     })
 
-const skillGapSchema = new mongoose.Schema({
+const skillGapsSchema = new mongoose.Schema({
     skill: {
         type: String,
         required: [true, "Skill is required"]
@@ -97,7 +97,7 @@ const interviewReportSchema = new mongoose.Schema(
         },
         technicalQuestions: [technicalQuestionsSchema],
         behavioralQuestions: [behavioralQuestionsSchema],
-        skillGap: [skillGapSchema],
+        skillGaps: [skillGapsSchema],
         preparationPlan: [preparationPlanSchema],
         userId: {
             type: mongoose.Schema.Types.ObjectId,

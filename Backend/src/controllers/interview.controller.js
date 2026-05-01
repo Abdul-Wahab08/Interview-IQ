@@ -40,7 +40,7 @@ const createInterviewReport = async (req, res) => {
             matchScore: interviewReport.matchScore,
             technicalQuestions: interviewReport.technicalQuestions,
             behavioralQuestions: interviewReport.behavioralQuestions,
-            skillGap: interviewReport.skillGaps,
+            skillGaps: interviewReport.skillGaps,
             preparationPlan: interviewReport.preparationPlan,
             userId: req.user._id
         })
