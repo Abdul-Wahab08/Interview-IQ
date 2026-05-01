@@ -37,11 +37,28 @@ function InterviewReport() {
     { id: 'preparation', label: 'Preparation Plan', icon: '📅' },
   ]
 
+  const getSeverityColor = (severity) => {
+    switch (severity?.toLowerCase()) {
+      case 'high':
+        return 'bg-red-500/20 text-red-400 border-red-500/30'
+      case 'medium':
+        return 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30'
+      case 'low':
+        return 'bg-green-500/20 text-green-400 border-green-500/30'
+      default:
+        return 'bg-gray-500/20 text-gray-400 border-gray-500/30'
+    }
+  }
+
+  if (isLoading) {
+    return <div className='flex justify-center items-center my-20'>
+      <Loader />
+    </div>
+  }
+
   return (
     <div className="min-h-screen bg-[#0d1117] text-gray-100">
-      {isLoading && <Loader />}
 
-      {/* Header */}
       <div className="bg-linear-to-r from-[#0a1628] to-[#0d1117] border-b border-gray-800">
         <div className="max-w-6xl mx-auto px-4 py-8">
           <div className="flex items-center justify-between flex-wrap gap-6">
@@ -62,7 +79,6 @@ function InterviewReport() {
         </div>
       </div>
 
-      {/* Tab Navigation */}
       <div className="bg-[#0a1628] border-b border-gray-800 sticky top-0 z-10">
         <div className="max-w-6xl mx-auto px-4">
           <nav className="flex gap-2 py-4 overflow-x-auto">
@@ -71,8 +87,8 @@ function InterviewReport() {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 whitespace-nowrap ${activeTab === tab.id
-                    ? 'bg-teal-500/20 text-teal-300 border border-teal-500/30'
-                    : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/50'
+                  ? 'bg-teal-500/20 text-teal-300 border border-teal-500/30'
+                  : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/50'
                   }`}
               >
                 <span className="mr-2">{tab.icon}</span>
@@ -103,12 +119,9 @@ function InterviewReport() {
         </div>
       </div>
 
-      {/* Content */}
       <div className="max-w-6xl mx-auto px-4 py-8">
-        {/* Overview Tab */}
         {activeTab === 'overview' && (
           <div className="grid md:grid-cols-2 gap-6">
-            {/* Quick Stats */}
             <div className="bg-[#0a1628] rounded-2xl border border-gray-800 p-6">
               <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
                 <span>📈</span> Quick Overview
@@ -133,13 +146,12 @@ function InterviewReport() {
               </div>
             </div>
 
-            {/* Top Skill Gaps */}
             <div className="bg-[#0a1628] rounded-2xl border border-gray-800 p-6">
               <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
                 <span>⚠️</span> Priority Skill Gaps
               </h3>
               <div className="space-y-3">
-                {report.skillGaps?.slice(0, 4).map((skillGap, index) => (
+                {report.skillGaps?.map((skillGap, index) => (
                   <div key={index} className="flex items-center justify-between p-3 bg-gray-800/50 rounded-xl">
                     <span className="text-gray-200">{skillGap.skill}</span>
                     <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${getSeverityColor(skillGap.severity)}`}>
@@ -147,13 +159,12 @@ function InterviewReport() {
                     </span>
                   </div>
                 ))}
-                {(!report.skillGap || report.skillGap.length === 0) && (
+                {(!report.skillGaps || report.skillGaps.length === 0) && (
                   <p className="text-gray-400 text-center py-4">No skill gaps identified</p>
                 )}
               </div>
             </div>
 
-            {/* Sample Technical Question */}
             <div className="bg-[#0a1628] rounded-2xl border border-gray-800 p-6">
               <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
                 <span>💻</span> Sample Technical Question
@@ -169,7 +180,6 @@ function InterviewReport() {
               )}
             </div>
 
-            {/* Sample Behavioral Question */}
             <div className="bg-[#0a1628] rounded-2xl border border-gray-800 p-6">
               <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
                 <span>🎯</span> Sample Behavioral Question
@@ -187,7 +197,6 @@ function InterviewReport() {
           </div>
         )}
 
-        {/* Technical Questions Tab */}
         {activeTab === 'technical' && (
           <div className="space-y-4">
             <h2 className="text-2xl font-semibold mb-6 flex items-center gap-3">
@@ -205,7 +214,6 @@ function InterviewReport() {
           </div>
         )}
 
-        {/* Behavioral Questions Tab */}
         {activeTab === 'behavioral' && (
           <div className="space-y-4">
             <h2 className="text-2xl font-semibold mb-6 flex items-center gap-3">
@@ -223,7 +231,6 @@ function InterviewReport() {
           </div>
         )}
 
-        {/* Skill Gaps Tab */}
         {activeTab === 'skillGaps' && (
           <div className="space-y-4">
             <h2 className="text-2xl font-semibold mb-6 flex items-center gap-3">
@@ -243,7 +250,6 @@ function InterviewReport() {
           </div>
         )}
 
-        {/* Preparation Plan Tab */}
         {activeTab === 'preparation' && (
           <div className="space-y-4">
             <h2 className="text-2xl font-semibold mb-6 flex items-center gap-3">

@@ -10,7 +10,7 @@ export const QuestionCard = ({ question, index }) => {
         className="w-full px-5 py-4 flex items-center justify-between text-left"
       >
         <div className="flex items-center gap-4">
-          <span className="flex items-center justify-center w-8 h-8 rounded-full bg-teal-500/20 text-teal-400 text-sm font-semibold">
+          <span className="flex items-center justify-center w-8 h-8 p-4 rounded-full bg-teal-500/20 text-teal-400 text-sm font-semibold">
             {index + 1}
           </span>
           <span className="font-medium text-gray-200">{question.question}</span>

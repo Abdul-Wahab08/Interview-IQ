@@ -1,6 +1,6 @@
 export const SkillGapCard = ({ skillGap }) => {
 
-  const getSeverityColor = (severity) => {
+ const getSeverityColor = (severity) => {
     switch (severity?.toLowerCase()) {
       case 'high':
         return 'bg-red-500/20 text-red-400 border-red-500/30'
