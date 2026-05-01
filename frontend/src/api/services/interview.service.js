@@ -32,24 +32,15 @@ export async function createResumePdf(interviewReportId) {
     }
 }
 
-export async function fetchLoggedInUserReports(userId) {
-    try {
-        const response = await axiosInstance.get(`/interview/user-reports/${userId}`);
-        return response.data;
-    } catch (error) {
-        console.error("Error fetching user interview reports:", error);
-        const message = error.response.data.message || "Failed to fetch user interview reports";
-        throw new Error(message);
-    }
+export async function fetchLoggedInUserReports() {
+
+    const response = await axiosInstance.get(`/interview/fetch-user-interview-reports`);
+    return response.data;
+
 }
 
 export async function fetchInterviewReportById(interviewReportId) {
-    try {
-        const response = await axiosInstance.get(`/interview/fetch-interview-report/${interviewReportId}`);
-        return response.data;
-    } catch (error) {
-        console.error("Error fetching interview report by ID:", error);
-        const message = error.response.data.message || "Failed to fetch interview report";
-        throw new Error(message);
-    }
+
+    const response = await axiosInstance.get(`/interview/fetch-interview-report/${interviewReportId}`);
+    return response.data;
 }
