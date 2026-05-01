@@ -41,12 +41,7 @@ export async function logout() {
 }
 
 export async function getUser() {
-    try {
-        const response = await axiosinstance.get('/auth/get-user')
 
-        return response.data
-    } catch (error) {
-        const message = error?.response?.data?.message || "Failed to get user data: An unexpected error occurred"
-        throw new Error(message)
-    }
+    const response = await axiosinstance.get('/auth/get-user')
+    return response.data
 }
