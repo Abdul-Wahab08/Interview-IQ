@@ -8,6 +8,7 @@ import { SkillGapCard } from '../components/interviewReportComponents/SkillGapCa
 import { QuestionCard } from '../components/interviewReportComponents/QuestionCard'
 import { PreparationDayCard } from '../components/interviewReportComponents/PreparationDayCard'
 import { SectionCard } from '../components/interviewReportComponents/SectionCard'
+import ResumePdf from '../components/ResumePdf'
 
 function InterviewReport() {
   const [isLoading, setIsLoading] = useState(false)
@@ -58,12 +59,11 @@ function InterviewReport() {
 
   return (
     <div className="min-h-screen bg-[#0d1117] text-gray-100">
-
       <div className="bg-linear-to-r from-[#0a1628] to-[#0d1117] border-b border-gray-800">
         <div className="max-w-6xl mx-auto px-4 py-8">
           <div className="flex items-center justify-between flex-wrap gap-6">
             <div>
-              <h1 className="text-3xl font-bold text-white mb-2">
+              <h1 className="lg:text-3xl text-2xl font-bold text-white mb-2">
                 {report.title || 'Interview Report'}
               </h1>
               <p className="text-gray-400">Comprehensive interview preparation guide</p>
@@ -75,6 +75,9 @@ function InterviewReport() {
                 <p className="text-xs text-gray-500">Based on your profile</p>
               </div>
             </div>
+          </div>
+          <div className='my-8 -mb-4'>
+          <ResumePdf interviewReportId={reportId} />
           </div>
         </div>
       </div>

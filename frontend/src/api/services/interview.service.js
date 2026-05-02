@@ -21,14 +21,12 @@ export async function createInterviewReport({ jobDescription, selfDescription, r
 
 export async function createResumePdf(interviewReportId) {
     try {
-        const response = await axiosInstance.post(`/interview/generate-resume-pdf/${interviewReportId}`, null, {
+        const response = await axiosInstance.post(`/interview/generate-resume-pdf/${interviewReportId}`, {}, {
             responseType: 'blob'
         });
         return response.data;
     } catch (error) {
         console.error("Error creating resume PDF:", error);
-        const message = error.response.data.message || "Failed to create resume PDF";
-        throw new Error(message);
     }
 }
 
