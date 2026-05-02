@@ -13,12 +13,11 @@ const pdfParse = require("pdf-parse");
 const createInterviewReport = async (req, res) => {
     try {
          const resumeContent = (await (new pdfParse.PDFParse(Uint8Array.from(req.file.buffer))).getText()).text.trim()
-        console.log("Extracted resume content:", resumeContent);
         const { jobDescription, selfDescription } = req.body;
 
         if (!(resumeContent || jobDescription || selfDescription)) {
             return res.status(400).json({
-                message: "Resume, job   and self description are required to generate interview report"
+                message: "Resume, job and self description are required to generate interview report"
             });
         }
 
@@ -79,7 +78,7 @@ const createResumePdf = async (req, res) => {
         }
         const interviewObjId = new mongoose.Types.ObjectId(interviewReportId);
 
-        const { jobDescription, selfDescription, resume } = await interviewReportModel.findById(interviewObjId);
+        const { resume, jobDescription, selfDescription} = await interviewReportModel.findById({_id: interviewObjId});
 
         if (!(resume || jobDescription || selfDescription)) {
             return res.status(400).json({
