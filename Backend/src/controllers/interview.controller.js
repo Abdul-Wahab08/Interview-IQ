@@ -163,6 +163,14 @@ const fetchInterviewReportById = async (req, res) => {
             })
         }
 
+        const userId = req.user._id
+
+        if(!userId){
+            return res.status(403).json({
+                message: "Not Allowed"
+            })
+        }
+
         const interviewObjId = new mongoose.Types.ObjectId(interviewReportId);
 
         const interviewReport = await interviewReportModel.findById(interviewObjId);
@@ -186,9 +194,51 @@ const fetchInterviewReportById = async (req, res) => {
     }
 }
 
+const deleteInterviewReportById = async (req, res) => {
+    try {
+        const{ interviewReportId} = req.params
+
+         if (!interviewReportId) {
+            return res.status(400).json({
+                message: "Interview ID is required to fetch interview report"
+            })
+        }
+
+         const userId = req.user._id
+
+        if(!userId){
+            return res.status(403).json({
+                message: "Not Allowed"
+            })
+        }
+
+       const interviewReportObjId =  new mongoose.Types.ObjectId(interviewReportId)
+
+       const deletedInterviewReport = await interviewReportModel.findByIdAndDelete({_id: interviewReportObjId})
+
+        if (!deletedInterviewReport) {
+            return res.status(404).json({
+                message: "Interview report not found"
+            })
+        }
+
+        return res.status(200).json({
+            deletedInterviewReportId: deletedInterviewReport._id,
+            message: "Interview Report deleted successfully"
+        })
+        
+    } catch (error) {
+        console.error("Error occurred while deleting interview report:", error);
+        return res.status(500).json({
+            message: "Failed to delete interview report"
+        }); 
+    }
+}
+
 export {
     createInterviewReport,
     createResumePdf,
     fetchUserInterviewReports,
-    fetchInterviewReportById
+    fetchInterviewReportById,
+    deleteInterviewReportById
 }

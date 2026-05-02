@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createInterviewReport, createResumePdf, fetchInterviewReportById, fetchUserInterviewReports } from "../controllers/interview.controller.js";
+import { createInterviewReport, createResumePdf, fetchInterviewReportById, fetchUserInterviewReports, deleteInterviewReportById } from "../controllers/interview.controller.js";
 import { verifyToken } from "../middlewares/auth.middleware.js";
 import fileUpload from "../middlewares/multer.middleware.js";
 
@@ -9,5 +9,6 @@ router.route("/generate-interview-report").post(verifyToken, fileUpload.single("
 router.route("/generate-resume-pdf/:interviewReportId").post(verifyToken, createResumePdf)
 router.route("/fetch-user-interview-reports").get(verifyToken, fetchUserInterviewReports)
 router.route("/fetch-interview-report/:interviewReportId").get(verifyToken, fetchInterviewReportById)
+router.route("/delete-interview-report/:interviewReportId").delete(verifyToken, deleteInterviewReportById)
 
 export default router
