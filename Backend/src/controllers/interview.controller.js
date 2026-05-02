@@ -55,7 +55,6 @@ const createInterviewReport = async (req, res) => {
             message: "Interview report generated successfully"
         });
     } catch (error) {
-        console.error("Error creating interview report:", error);
         return res.status(500).json({
             message: "Failed to create interview report"
         });
@@ -99,7 +98,6 @@ const createResumePdf = async (req, res) => {
         return res.status(200).send(pdfBuffer);
 
     } catch (error) {
-        console.error("Error creating resume PDF:", error);
         return res.status(500).json({ message: "Failed to create resume PDF" });
     }
 }
@@ -141,7 +139,6 @@ const fetchUserInterviewReports = async (req, res) => {
             message: "All interview Reports of logged in user fetched successfully"
         })
     } catch (error) {
-        console.error("Error fetching interview reports:", error);
         return res.status(500).json({
             message: "Failed to fetch interview reports"
         });
@@ -187,7 +184,6 @@ const fetchInterviewReportById = async (req, res) => {
         })
 
     } catch (error) {
-        console.error("Error fetching interview report:", error);
         return res.status(500).json({
             message: "Failed to fetch interview report"
         });
@@ -228,7 +224,6 @@ const deleteInterviewReportById = async (req, res) => {
         })
         
     } catch (error) {
-        console.error("Error occurred while deleting interview report:", error);
         return res.status(500).json({
             message: "Failed to delete interview report"
         }); 

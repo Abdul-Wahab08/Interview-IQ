@@ -23,7 +23,6 @@ export const convertTextToPdfUsingPuppeteer = async (textContent) => {
         return pdfBuffer
 
     } catch (error) {
-        console.error("Error converting text to PDF:", error);
         throw new Error("Failed to convert text to PDF");
     }
 }

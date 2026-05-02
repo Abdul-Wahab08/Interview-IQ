@@ -68,6 +68,7 @@ function Home() {
                   </div>
                   <h3 className="text-teal-50 font-medium text-lg mb-2">{report.title}</h3>
                   <p className="text-teal-400 text-sm">Score: {report.matchScore}/100</p>
+                  <p className="text-sm">Date: {report.createdAt.split("T")[0]}</p>
                 </Link>
               ))}
             </div>

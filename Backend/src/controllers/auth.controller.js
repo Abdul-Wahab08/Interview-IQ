@@ -72,7 +72,6 @@ const signup = async (req, res) => {
             }
         })
     } catch (error) {
-        console.log("Error in signUp controller:", error)
         return res.status(500).json({ message: "Internal server error" })
     }
 }
@@ -125,7 +124,6 @@ const login = async (req, res) => {
             })
 
     } catch (error) {
-        console.log("Error in Login controller:", error)
         return res.status(500).json({ message: "Internal server error" })
     }
 
@@ -154,7 +152,6 @@ const logout = async (req, res) => {
         })
 
     } catch (error) {
-        console.log("Error in Logout controller:", error)
         return res.status(500).json({
             message: "Internal server error"
         })
@@ -193,7 +190,6 @@ const getUser = async (req, res) => {
         })
 
     } catch (error) {
-        console.log("Error in get user controller:", error)
         return res.status(500).json({
             message: "Internal server error"
         })

@@ -13,7 +13,6 @@ export async function createInterviewReport({ jobDescription, selfDescription, r
         });
         return response.data;
     } catch (error) {
-        console.error("Error creating interview report:", error);
         const message = error.response.data.message || "Failed to create interview report";
         throw new Error(message);
     }
@@ -26,7 +25,7 @@ export async function createResumePdf(interviewReportId) {
         });
         return response.data;
     } catch (error) {
-        console.error("Error creating resume PDF:", error);
+        throw error
     }
 }
 

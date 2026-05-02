@@ -18,12 +18,10 @@ function GenerateReport() {
         selfDescription: data.selfDescription,
         resume: data.resume[0],
       })
-      console.log("Interview report created successfully:", response);
       toast.success(response.message || "Interview report generated successfully")
       navigate(`/interview-report/${response.interviewReport._id}`)
     } catch (error) {
       toast.error(error.message || "An error occurred while generating the report")
-      console.error("Error generating interview report:", error);
     } finally {
       setIsLoading(false)
     }

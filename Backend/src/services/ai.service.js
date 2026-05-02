@@ -86,7 +86,6 @@ export const generateInterviewReport = async ({ jobDescription, resume, selfDesc
 
     return interviewReport;
   } catch (error) {
-    console.error("Error generating interview report:", error);
     throw error;
   }
 }
@@ -126,7 +125,6 @@ export const generateResumePdf = async ({ jobDescription, resume, selfDescriptio
     return pdfBuffer;
 
   } catch (error) {
-    console.error("Error generating resume PDF from interview report: ", error);
     throw error;
   }
 }
