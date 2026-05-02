@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from "react-hook-form"
 import { Link } from 'react-router'
 import { signup } from '../api/services/auth.service'
@@ -6,13 +6,16 @@ import { useDispatch } from 'react-redux'
 import { login } from '../features/auth/authSlice'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router'
+import Loader from '../components/Loader'
 
 function Signup() {
+  const[isLoading, setIsLoading] = useState(false)
   const { register, handleSubmit, formState: { errors } } = useForm()
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const onSubmit = async (data) => {
+    setIsLoading(true)
     try {
       const result = await signup({
         username: data.username,
@@ -26,6 +29,8 @@ function Signup() {
       }
     } catch (error) {
       toast.error(error.message || "Signup failed: An unexpected error occurred")
+    }finally{
+      setIsLoading(false)
     }
   }
   return (
@@ -51,8 +56,15 @@ function Signup() {
           <button
             className="bg-teal-500 hover:bg-teal-600 text-teal-950 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-200 w-full cursor-pointer "
             type="submit"
+            disabled={isLoading}
           >
-            Sign Up
+            {isLoading ?
+            <div className='flex items-center justify-center gap-2'>
+              <span>Loading...</span>
+              <Loader />
+              </div>
+              :
+              "Sign Up"}
           </button>
         </form>
       </div>
