@@ -8,7 +8,8 @@ import { SkillGapCard } from '../components/interviewReportComponents/SkillGapCa
 import { QuestionCard } from '../components/interviewReportComponents/QuestionCard'
 import { PreparationDayCard } from '../components/interviewReportComponents/PreparationDayCard'
 import { SectionCard } from '../components/interviewReportComponents/SectionCard'
-import ResumePdf from '../components/ResumePdf'
+import ResumePdf from '../components/ResumePdfBtn'
+import DeleteReport from '../components/DeleteReportBtn'
 
 function InterviewReport() {
   const [isLoading, setIsLoading] = useState(false)
@@ -75,10 +76,7 @@ function InterviewReport() {
                 <p className="text-xs text-gray-500">Based on your profile</p>
               </div>
             </div>
-          </div>
-          <div className='my-8 -mb-4'>
-          <ResumePdf interviewReportId={reportId} />
-          </div>
+          </div>  
         </div>
       </div>
 
@@ -271,7 +269,12 @@ function InterviewReport() {
             )}
           </div>
         )}
+        
       </div>
+      <div className='flex justify-center items-center flex-row gap-4 m-8'>
+         <ResumePdf interviewReportId={reportId} />
+        <DeleteReport interviewReportId={reportId} />
+        </div>
     </div>
   )
 }

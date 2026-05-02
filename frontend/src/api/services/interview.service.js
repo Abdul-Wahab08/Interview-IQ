@@ -42,3 +42,8 @@ export async function fetchInterviewReportById(interviewReportId) {
     const response = await axiosInstance.get(`/interview/fetch-interview-report/${interviewReportId}`);
     return response.data;
 }
+
+export async function deleteInterviewReportById(interviewReportId) {
+    const response = await axiosInstance.delete(`/interview/delete-interview-report/${interviewReportId}`);
+    return response.data;
+}
