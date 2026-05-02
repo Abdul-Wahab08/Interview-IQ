@@ -1,6 +1,6 @@
-import blacklistModel from "../models/blacklist.model.js"
 import jwt from "jsonwebtoken";
 import userModel from "../models/user.model.js";
+import redis from "../config/redis.js";
 
 export const verifyToken = async (req, res, next) => {
     try {
@@ -11,10 +11,10 @@ export const verifyToken = async (req, res, next) => {
                 message: "Unauthorized, token is missing"
             })
         }
+        
+        const isTokenValid = await redis.get(token)
 
-        const isBlackListed = await blacklistModel.findOne({ token })
-
-        if (isBlackListed) {
+        if(isTokenValid){
             return res.status(405).json({
                 message: "Token is blacklisted, please login again"
             })

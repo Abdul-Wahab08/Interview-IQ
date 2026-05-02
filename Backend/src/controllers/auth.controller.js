@@ -1,7 +1,7 @@
 import userModel from "../models/user.model.js"
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt"
-import blacklistModel from "../models/blacklist.model.js";
+import redis from "../config/redis.js";
 
 /**
  * @name signup
@@ -139,9 +139,12 @@ const login = async (req, res) => {
 const logout = async (req, res) => {
     try {
         const token = req.cookies.token
+        const decodedToken = jwt.decode(token)
 
-        if (token) {
-            await blacklistModel.create({ token })
+        const timeToLive = decodedToken.exp - Math.floor(Date.now()/1000)
+
+        if(timeToLive > 0){
+            await redis.setex(token, timeToLive, "blacklisted")
         }
 
         res.clearCookie("token")
