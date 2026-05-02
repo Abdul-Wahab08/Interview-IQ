@@ -4,38 +4,6 @@ import { zodToJsonSchema } from "zod-to-json-schema";
 import { required } from "zod/mini";
 import { convertTextToPdfUsingPuppeteer } from "./puppeteer.service.js";
 
-const technicalQuestionsSchema = z.object({
-  question: z.string().describe("Technical question can be asked during the interview"),
-  intention: z.string().describe("Intention behind asking the technical question"),
-  answer: z.string().describe("How to answer the question, including key points to cover and common pitfalls to avoid")
-}).describe("Technical questions that can be asked during the interview");
-
-const behavioralQuestionsSchema = z.object({
-  question: z.string().describe("Behavioral question can be asked during the interview"),
-  intention: z.string().describe("Intention behind asking the behavioral question"),
-  answer: z.string().describe("How to answer the question, including key points to cover and common pitfalls to avoid")
-}).describe("Behavioral questions that can be asked during the interview");
-
-const skillGapSchema = z.object({
-  skill: z.string().describe("Skill that the candidate is lacking for the job"),
-  severity: z.enum(["Low", "Medium", "High"]).describe("Severity of the skill gap i.e. how important it is for the candidate to improve on this skill in order to be a good fit for the job")
-}).describe("Skills that the candidate is lacking for the job");
-
-const preparationPlanSchema = z.object({
-  day: z.number().describe("Day number in the preparation plan, starting from 1"),
-  focus: z.string().describe("Focus area for this day in the preparation plan, e.g. technical questions, behavioral questions, etc."),
-  tasks: z.array(z.string()).describe("List of tasks to be completed on this day as part of the preparation plan")
-}).describe("Preparation plan for the candidate to improve their chances of success in the interview");
-
-const interviewReportSchema = z.object({
-  title: z.string().describe("Title of the job on which the interview report is based"),
-  matchScore: z.number().describe("A score from 0 to 100 representing the match between the candidate and the job"),
-  technicalQuestions: z.array(technicalQuestionsSchema).describe("Technical questions that can be asked during the interview"),
-  behavioralQuestions: z.array(behavioralQuestionsSchema).describe("Behavioral questions that can be asked during the interview"),
-  skillGaps: z.array(skillGapSchema).describe("Skills that the candidate is lacking for the job"),
-  preparationPlan: z.array(preparationPlanSchema).describe("Preparation plan for the candidate to improve their chances of success in the interview")
-})
-
 const geminiSchema = {
   type: "object",
   properties: {
@@ -102,19 +70,6 @@ export const generateInterviewReport = async ({ jobDescription, resume, selfDesc
   const ai = new GoogleGenAI({
     apiKey: process.env.GOOGLE_GENAI_API_KEY
   })
-
-  const fullSchema = zodToJsonSchema(interviewReportSchema, {
-    target: "openApi3",
-    $refStrategy: "none"
-  });
-
-  const refinedSchema = {
-    type: "object",
-    properties: fullSchema.properties,
-    required: fullSchema.required,
-    ...(fullSchema.$defs && { $defs: fullSchema.$defs }),
-    ...(fullSchema.definitions && { definitions: fullSchema.definitions }),
-  }
 
   try {
     const response = await ai.models.generateContent({
