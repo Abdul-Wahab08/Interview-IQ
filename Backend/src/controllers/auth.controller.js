@@ -61,7 +61,11 @@ const signup = async (req, res) => {
             }
         )
 
-        res.cookie("token", token)
+        res.cookie("token", token, {
+                httpOnly: true,
+                sameSite: "strict",
+                maxAge: 24 * 60 * 60 * 1000
+              })
 
         return res.status(201).json({
             message: "User created successfully",
@@ -112,7 +116,11 @@ const login = async (req, res) => {
                 }
             )
 
-              res.cookie("token", token)
+              res.cookie("token", token, {
+                httpOnly: true,
+                sameSite: "strict",
+                maxAge: 24 * 60 * 60 * 1000
+              })
 
             return res.status(200).json({
                 message: "User Logged in Successfully",
@@ -145,7 +153,10 @@ const logout = async (req, res) => {
             await redis.setex(token, timeToLive, "blacklisted")
         }
 
-        res.clearCookie("token")
+        res.clearCookie("token", {
+            httpOnly: true,
+            sameSite: "strict",
+        })
 
         return res.status(200).json({
             message: "User Logged out Successfully"
