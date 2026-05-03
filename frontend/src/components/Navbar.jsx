@@ -7,7 +7,7 @@ function Navbar() {
 
   return (
     <nav className="w-full px-8 py-4 flex items-center justify-between bg-[#0d1117] border-b border-teal-900/50">
-      <h1 className="text-teal-300 font-semibold text-lg tracking-wide">ResumeAI</h1>
+      <h1 className="text-teal-300 font-semibold text-lg tracking-wide">InterviewIQ</h1>
       <div className="flex gap-6">
         <Link to="/" className="text-teal-500 hover:text-teal-200 text-sm transition">Home</Link>
         {!authStatus ?
