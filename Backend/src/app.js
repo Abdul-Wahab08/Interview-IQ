@@ -16,4 +16,4 @@ import interviewRouter from "./routes/interview.route.js"
 
 app.use("/api/v1/auth", authRoute)
 app.use("/api/v1/interview", interviewRouter)
-export {app}
+export default app
