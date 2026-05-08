@@ -8,17 +8,17 @@ import app  from "./app.js"
 const port = process.env.PORT
 
  dbConnect()
-//     .then(() => {
-//         app.listen(port, () => {
-//             console.log(`⚙️  Server running on port ${port}`)
-//         })
-//         app.on("Error", (error) => {
-//             console.log("Error ", error)
-//         })
-//     })
-//     .catch((error) => {
-//         console.log("MongoDB Connection Failed ", error)
-//     })
+    .then(() => {
+        app.listen(port, () => {
+            console.log(`⚙️  Server running on port ${port}`)
+        })
+        app.on("Error", (error) => {
+            console.log("Error ", error)
+        })
+    })
+    .catch((error) => {
+        console.log("MongoDB Connection Failed ", error)
+    })
 
 
 
