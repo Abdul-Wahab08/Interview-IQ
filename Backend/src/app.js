@@ -7,7 +7,7 @@ const app = express()
 app.use(cors({
     origin: [
         "http://localhost:5173",
-        ""
+        "https://interview-iq-4v81.vercel.app"
     ],
     credentials: true
 }))
