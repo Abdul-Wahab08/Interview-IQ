@@ -10,7 +10,7 @@ const port = process.env.PORT
 app.use(async (req, res, next) => {
     await dbConnect()
         .then(() => {
-            console.log(`⚙️  Server running on port ${port}`)
+            console.log(`⚙️ Server running on port ${port}`)
             next()
         })
         .catch((error) => {

@@ -1,8 +1,12 @@
 import mongoose from "mongoose";
 import { DB_NAME } from "../constants.js";
 
+let isConnected = false
 export const dbConnect = async () => {
-    let isConnected = false
+    if (isConnected) {
+        console.log("Reusing existing MongoDB connection");
+        return;
+    }
     try {
         const dbConnection = await mongoose.connect(`${process.env.MONGO_URI}/${DB_NAME}`)
         isConnected = dbConnection.connections[0].readyState === 1
