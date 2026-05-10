@@ -1,6 +1,7 @@
 import express from "express"
 import { dbConnect } from "./db/dbConnect.js"
 import app from "./app.js"
+import mongoose from "mongoose"
 // import dotenv from "dotenv"
 
 // dotenv.config({path: './.env'})
@@ -11,6 +12,8 @@ app.use(async (req, res, next) => {
     await dbConnect()
         .then(() => {
             console.log(`⚙️ Server running on port ${port}`)
+            console.log("dbConnect done, readyState:", mongoose.connection.readyState);
+
             next()
         })
         .catch((error) => {
