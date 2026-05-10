@@ -1,4 +1,4 @@
-import axiosinstance from '../axiosinstance';
+import axiosinstance from '../axiosInstance';
 
 export async function signup({ username, email, password }) {
     try {
