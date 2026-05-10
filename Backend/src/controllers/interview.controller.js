@@ -12,7 +12,8 @@ const pdfParse = require("pdf-parse-fork");
  */
 const createInterviewReport = async (req, res) => {
     try {
-         const resumeContent = (await (new pdfParse.PDFParse(Uint8Array.from(req.file.buffer))).getText()).text.trim()
+        const pdfData = await pdfParse(req.file.buffer);
+        const resumeContent = pdfData.text.trim();
         const { jobDescription, selfDescription } = req.body;
 
         if (!(resumeContent || jobDescription || selfDescription)) {
@@ -78,7 +79,7 @@ const createResumePdf = async (req, res) => {
         }
         const interviewObjId = new mongoose.Types.ObjectId(interviewReportId);
 
-        const { resume, jobDescription, selfDescription} = await interviewReportModel.findById({_id: interviewObjId});
+        const { resume, jobDescription, selfDescription } = await interviewReportModel.findById({ _id: interviewObjId });
 
         if (!(resume || jobDescription || selfDescription)) {
             return res.status(400).json({
@@ -99,7 +100,7 @@ const createResumePdf = async (req, res) => {
         return res.status(200).send(pdfBuffer);
 
     } catch (error) {
-    console.log("Error while creating resume pdf: ", error)
+        console.log("Error while creating resume pdf: ", error)
         return res.status(500).json({ message: "Failed to create resume PDF" });
     }
 }
@@ -164,7 +165,7 @@ const fetchInterviewReportById = async (req, res) => {
 
         const userId = req.user._id
 
-        if(!userId){
+        if (!userId) {
             return res.status(403).json({
                 message: "Not Allowed"
             })
@@ -194,25 +195,25 @@ const fetchInterviewReportById = async (req, res) => {
 
 const deleteInterviewReportById = async (req, res) => {
     try {
-        const{ interviewReportId} = req.params
+        const { interviewReportId } = req.params
 
-         if (!interviewReportId) {
+        if (!interviewReportId) {
             return res.status(400).json({
                 message: "Interview ID is required to fetch interview report"
             })
         }
 
-         const userId = req.user._id
+        const userId = req.user._id
 
-        if(!userId){
+        if (!userId) {
             return res.status(403).json({
                 message: "Not Allowed"
             })
         }
 
-       const interviewReportObjId =  new mongoose.Types.ObjectId(interviewReportId)
+        const interviewReportObjId = new mongoose.Types.ObjectId(interviewReportId)
 
-       const deletedInterviewReport = await interviewReportModel.findByIdAndDelete({_id: interviewReportObjId})
+        const deletedInterviewReport = await interviewReportModel.findByIdAndDelete({ _id: interviewReportObjId })
 
         if (!deletedInterviewReport) {
             return res.status(404).json({
@@ -224,11 +225,11 @@ const deleteInterviewReportById = async (req, res) => {
             deletedInterviewReportId: deletedInterviewReport._id,
             message: "Interview Report deleted successfully"
         })
-        
+
     } catch (error) {
         return res.status(500).json({
             message: "Failed to delete interview report"
-        }); 
+        });
     }
 }
 
