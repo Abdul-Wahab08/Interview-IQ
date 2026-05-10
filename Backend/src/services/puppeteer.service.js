@@ -1,9 +1,15 @@
-import puppeteer from "puppeteer"
+import puppeteer from "puppeteer-core";
+import chromium from "@sparticuz/chromium";
 
 export const convertTextToPdfUsingPuppeteer = async (textContent) => {
     const {html} = JSON.parse(textContent)
     try {
-        const browser = await puppeteer.launch()
+        const browser = await puppeteer.launch({
+            args: chromium.args,
+            defaultViewport: chromium.defaultViewport,
+            executablePath: await chromium.executablePath(),
+            headless: chromium.headless
+        })
         const page = await browser.newPage()
         await page.setContent(html, {
             waitUntil: "networkidle0"
@@ -11,6 +17,7 @@ export const convertTextToPdfUsingPuppeteer = async (textContent) => {
 
         const pdfBuffer = await page.pdf({
             format: "A4",
+            printBackground: true,
             margin: {
                 top: "20mm",
                 bottom: "20mm",
