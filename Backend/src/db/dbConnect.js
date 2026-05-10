@@ -7,8 +7,12 @@ export const dbConnect = async () => {
         console.log("Reusing existing MongoDB connection");
         return;
     }
+
     try {
-        const dbConnection = await mongoose.connect(`${process.env.MONGO_URI}/${DB_NAME}`)
+        const dbConnection = await mongoose.connect(`${process.env.MONGO_URI}/${DB_NAME}`, {
+            serverSelectionTimeoutMS: 30000,
+            bufferCommands: false
+        })
         isConnected = dbConnection.connections[0].readyState === 1
         console.log("MongoDb Connect SuccessFully!! DB Host: ", dbConnection.connection.host)
     } catch (error) {
