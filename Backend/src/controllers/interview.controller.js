@@ -55,6 +55,7 @@ const createInterviewReport = async (req, res) => {
             message: "Interview report generated successfully"
         });
     } catch (error) {
+        console.log("Error while creating user's report: ", error)
         return res.status(500).json({
             message: "Failed to create interview report"
         });
@@ -98,6 +99,7 @@ const createResumePdf = async (req, res) => {
         return res.status(200).send(pdfBuffer);
 
     } catch (error) {
+    console.log("Error while creating resume pdf: ", error)
         return res.status(500).json({ message: "Failed to create resume PDF" });
     }
 }
