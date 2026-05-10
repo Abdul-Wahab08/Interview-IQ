@@ -2,8 +2,10 @@ import mongoose from "mongoose";
 import { DB_NAME } from "../constants.js";
 
 export const dbConnect = async () => {
+    let isConnected = false
     try {
         const dbConnection = await mongoose.connect(`${process.env.MONGO_URI}/${DB_NAME}`)
+        isConnected = dbConnection.connections[0].readyState === 1
         console.log("MongoDb Connect SuccessFully!! DB Host: ", dbConnection.connection.host)
     } catch (error) {
         console.log("Error occurs while connecting database ", error)
