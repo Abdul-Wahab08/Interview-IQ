@@ -1,8 +1,9 @@
-import puppeteer from "puppeteer-core";
-import chromium from "@sparticuz/chromium";
-
 export const convertTextToPdfUsingPuppeteer = async (textContent) => {
     const {html} = JSON.parse(textContent)
+
+    const chromium = (await import("@sparticuz/chromium")).default;
+    const puppeteer = (await import("puppeteer-core")).default;
+
     try {
         const browser = await puppeteer.launch({
             args: chromium.args,
