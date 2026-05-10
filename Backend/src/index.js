@@ -8,19 +8,6 @@ import mongoose from "mongoose"
 
 const port = process.env.PORT
 
-app.use(async (req, res, next) => {
-    await dbConnect()
-        .then(() => {
-            console.log(`⚙️ Server running on port ${port}`)
-            console.log("dbConnect done, readyState:", mongoose.connection.readyState);
-
-            next()
-        })
-        .catch((error) => {
-            console.log("MongoDB Connection Failed ", error)
-        })
-})
-
 //  dbConnect()
 //     .then(() => {
 //         // app.listen(port, () => {

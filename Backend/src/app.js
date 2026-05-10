@@ -12,6 +12,24 @@ app.use(cors({
 app.use(express.json({limit: "16kb"}))
 app.use(cookieParser())
 
+import { dbConnect } from "./db/dbConnect.js"
+import mongoose from "mongoose"
+
+const port = process.env.PORT
+
+app.use(async (req, res, next) => {
+    await dbConnect()
+        .then(() => {
+            console.log(`⚙️ Server running on port ${port}`)
+            console.log("dbConnect done, readyState:", mongoose.connection.readyState);
+
+            next()
+        })
+        .catch((error) => {
+            console.log("MongoDB Connection Failed ", error)
+        })
+})
+
 import authRoute from "./routes/auth.route.js"
 import interviewRouter from "./routes/interview.route.js"
 
