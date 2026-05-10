@@ -8,6 +8,8 @@ import mongoose from "mongoose"
 
 const port = process.env.PORT
 
+// making it serverless to run on vercel
+
 //  dbConnect()
 //     .then(() => {
 //         // app.listen(port, () => {
