@@ -29,7 +29,7 @@ function GenerateReport() {
 
   return (
     <div className="min-h-screen bg-[#0d1117] text-teal-100 flex items-center justify-center">
-      <div className="bg-[#0a1628] border border-teal-900/40 rounded-2xl p-8 max-w-md text-center">
+      <div className="bg-[#0a1628] border border-teal-900/40 rounded-2xl p-8 max-w-lg text-center">
         <h2 className="text-2xl font-semibold mb-4">Generate Interview Report</h2>
         <p className="text-teal-600 text-sm mb-6">
           This is where the interview report generation form will go. Users can upload their resume and input job details to get a tailored interview prep report.

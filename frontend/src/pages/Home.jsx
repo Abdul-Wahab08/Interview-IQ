@@ -1,4 +1,4 @@
-import { Link, useFetcher, useNavigate } from "react-router"
+import { useNavigate, Link } from "react-router"
 import { useSelector } from "react-redux"
 import { useEffect, useState } from "react"
 import { fetchLoggedInUserReports } from "../api/services/interview.service"
@@ -20,32 +20,37 @@ function Home() {
 
   return (
     <div className="min-h-screen bg-[#0d1117] text-teal-100">
-      <section className="flex flex-col items-center text-center px-6 pt-20 pb-12">
-        <h1 className="text-4xl font-semibold text-teal-50 max-w-xl leading-tight mb-4">
-          Land your dream job with a smarter resume
+      <section className="mx-auto flex max-w-5xl flex-col items-center px-6 py-20 text-center">
+        <h1 className="text-3xl font-semibold leading-tight tracking-tight text-teal-50 sm:text-5xl max-w-3xl">
+          Build a stronger resume, prepare with confidence,
+          and land your next interview faster.
         </h1>
-        <p className="text-teal-600 text-sm max-w-md leading-relaxed mb-8">
-          Upload your resume, describe the role — get an AI-tailored resume
-          and a full interview preparation report instantly.
+        <p className="mt-6 text-teal-400 text-base leading-7 max-w-2xl">
+          Upload your resume and job details once, then let AI generate a tailored resume update and a focused interview preparation plan that helps you make the best impression.
         </p>
-        <button
-          onClick={() => navigate("/generate-report")}
-          className="bg-teal-700 hover:bg-teal-600 text-teal-100 text-sm px-6 py-2.5 rounded-lg transition"
-        >
-          Generate Interview Report
-        </button>
+        <div className="mt-10 ">
+          <button
+            onClick={() => navigate("/generate-report")}
+            className="h-12 rounded-full bg-teal-700 px-6 text-sm font-medium text-white transition hover:bg-teal-600 cursor-pointer"
+          >
+            Start now
+          </button>
+          {/* <button
+            onClick={() => navigate("/generate-report")}
+            className="h-12 rounded-full border border-teal-600 bg-transparent px-6 text-sm font-medium text-teal-100 transition hover:border-teal-400 hover:text-teal-50"
+          >
+            Learn more
+          </button> */}
+        </div>
       </section>
 
-      <div className="flex justify-center items-center gap-0 max-w-lg mx-auto px-6 mb-12">
-        {["Upload resume", "Add job details", "Get AI output"].map((step, i) => (
-          <div key={i} className="flex items-center flex-1">
-            <div className="flex flex-col items-center flex-1 text-center">
-              <div className="w-7 h-7 rounded-full bg-teal-950 border border-teal-800 text-teal-400 text-xs flex items-center justify-center mb-2">
-                {i + 1}
-              </div>
-              <p className="text-teal-600 text-xs">{step}</p>
+      <div className="grid gap-4 max-w-5xl mx-auto px-6 mb-12 sm:grid-cols-3">
+        {['Upload resume', 'Add job details', 'Get AI output'].map((step, i) => (
+          <div key={i} className="rounded-3xl border border-teal-900/40 bg-[#0b121a] px-5 py-6 text-center shadow-[0_20px_60px_rgba(0,0,0,0.3)] transition hover:border-teal-500/50 hover:bg-[#111a27]">
+            <div className="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-teal-950 text-sm font-semibold text-teal-200">
+              {i + 1}
             </div>
-            {i < 2 && <div className="h-px bg-teal-900 flex-1 mb-4" />}
+            <p className="text-sm font-semibold text-teal-100">{step}</p>
           </div>
         ))}
       </div>
