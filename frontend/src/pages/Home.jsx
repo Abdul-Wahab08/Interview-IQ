@@ -21,7 +21,7 @@ function Home() {
   return (
     <div className="min-h-screen bg-[#0d1117] text-teal-100">
       <section className="mx-auto flex max-w-5xl flex-col items-center px-6 py-20 text-center">
-        <h1 className="text-3xl font-semibold leading-tight tracking-tight text-teal-50 sm:text-5xl max-w-3xl">
+        <h1 className="text-3xl font-semibold leading-tight tracking-tight text-teal-50 sm:text-5xl max-w-5xl">
           Build a stronger resume, prepare with confidence,
           and land your next interview faster.
         </h1>
@@ -35,12 +35,6 @@ function Home() {
           >
             Start now
           </button>
-          {/* <button
-            onClick={() => navigate("/generate-report")}
-            className="h-12 rounded-full border border-teal-600 bg-transparent px-6 text-sm font-medium text-teal-100 transition hover:border-teal-400 hover:text-teal-50"
-          >
-            Learn more
-          </button> */}
         </div>
       </section>
 
