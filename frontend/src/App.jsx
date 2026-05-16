@@ -4,7 +4,6 @@ import { useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
 import { getUser } from "./api/services/auth.service"
 import { login } from "./features/auth/authSlice"
-import { toast } from "react-toastify"
 
 function App() {
   const dispatch = useDispatch()
@@ -17,7 +16,7 @@ function App() {
         dispatch(login(data.user))
         }
       } catch (error) {
-        console.error("Error fetching user data: ", error)
+        throw error
       }
     }
 
